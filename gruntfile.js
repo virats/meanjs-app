@@ -49,6 +49,11 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+        shell: {
+            mongo: {
+                command: 'mongod &'
+            }
+        },
 		jshint: {
 			all: {
 				src: watchFiles.clientJS.concat(watchFiles.serverJS),
@@ -140,6 +145,7 @@ module.exports = function(grunt) {
 
 	// Load NPM tasks 
 	require('load-grunt-tasks')(grunt);
+    grunt.loadNpmTasks('grunt-shell');
 
 	// Making grunt default to force in order not to break the project.
 	grunt.option('force', true);
@@ -154,7 +160,7 @@ module.exports = function(grunt) {
 	});
 
 	// Default task(s).
-	grunt.registerTask('default', ['lint', 'concurrent:default']);
+	grunt.registerTask('default', ['shell', 'lint', 'concurrent:default']);
 
 	// Debug task.
 	grunt.registerTask('debug', ['lint', 'concurrent:debug']);
